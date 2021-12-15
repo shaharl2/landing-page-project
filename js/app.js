@@ -32,10 +32,10 @@ const myMain = document.querySelector("main");
  */
 
 // *****************************************************************************************************************
-// for loop to populate the sections content. This loop adds 4 new sections but it should work with other values too
+// for loop to dynamically populate the new sections content.
 // *****************************************************************************************************************
 
-for (let i = 1; i <= 4; i++) {
+for (let i = 0; i <= mySections.length; i++) {
   // *************************************
   // storing the diffrent section elements
   // *************************************
@@ -52,14 +52,14 @@ for (let i = 1; i <= 4; i++) {
   // and therefore I start build from 4
   // *************************************
 
-  newSection.setAttribute("id", `section${3 + i}`);
-  newSection.setAttribute("data-nav", `section ${3 + i}`);
+  newSection.setAttribute("id", `section${4 + i}`);
+  newSection.setAttribute("data-nav", `section ${4 + i}`);
   newDiv.className = "landing__container";
 
   // *************************************
   // creating the text content
   // *************************************
-  newHead.textContent = `Section ${3 + i}`;
+  newHead.textContent = `Section ${4 + i}`;
   newPar.textContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.";
   newPar2.textContent =
@@ -178,7 +178,24 @@ document.addEventListener("scroll", function () {
 const myNavList = document.querySelector("#navbar__list");
 myNavList.addEventListener("click", function (evt) {
   evt.preventDefault();
+
+  // ******************************************************************************
+  // Set an active state on the link in the Navbar when it is clicked.
+  // The active state remains until another link is clicked
+  // and the active state moves to the new link.
+  // The active link in the Navbar is highlighted by a rule written in the CSS file
+  // ******************************************************************************
+
   const navEvent = evt.target.getAttribute("id");
+  if (document.querySelectorAll(".activeLinkClass").length === 0) {
+    const activeLink = document.getElementById(`${navEvent}`);
+    activeLink.classList.add("activeLinkClass");
+  } else {
+    const currentActiveLink = document.querySelector(".activeLinkClass");
+    currentActiveLink.classList.remove("activeLinkClass");
+    const activeLink = document.getElementById(`${navEvent}`);
+    activeLink.classList.add("activeLinkClass");
+  }
 
   // **************************************************
   //  caculating the total height of the header and the
